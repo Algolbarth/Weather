@@ -6,6 +6,21 @@ interface WeatherData {
   weather_description: string;
 }
 
+const get_outfit = (condition: string, temperature: number) => {
+  if (condition.includes("rain")) {
+    return "Prenez un parapluie et un imperméable !";
+  }
+  else if (temperature >= 10 && temperature < 20) {
+    return "Un pull léger et un jean feront l'affaire.";
+  }
+  else if (temperature < 10) {
+    return "Portez un manteau chaud et une écharpe.";
+  }
+  else {
+    return "Un t-shirt et un short sont parfaits pour aujourd'hui.";
+  }
+};
+
 const App: React.FC = () => {
   const [city, set_city] = useState("");
   const [weather, set_weather] = useState<WeatherData | null>(null);
@@ -82,6 +97,7 @@ const App: React.FC = () => {
         <div style={{ marginTop: "20px", padding: "10px", border: "1px solid #ccc", borderRadius: "4px" }}>
           <h2 style={{ fontSize: "20px", fontWeight: "bold" }}>{weather.city}</h2>
           <p>{weather.temperature}°C - {weather.weather_description}</p>
+          <p>Conseil : {get_outfit(weather.weather_description, weather.temperature)}</p>
         </div>
       )}
     </div>
